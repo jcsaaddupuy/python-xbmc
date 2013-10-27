@@ -43,6 +43,13 @@ Everything to build a script thats act as a full remote
 xbmc.Application.SetMute({"mute":True})
 xbmc.Player.PlayPause([PLAYER_VIDEO])
 xbmc.Player.Stop([PLAYER_VIDEO])
+xbmc.Input.Left()
+xbmc.Input.Right()
+xbmc.Input.Up()
+xbmc.Input.Down()
+xbmc.Input.Back()
+xbmc.Input.Down()
+xbmc.Input.Info()
 # ...and so on
 ```
 
