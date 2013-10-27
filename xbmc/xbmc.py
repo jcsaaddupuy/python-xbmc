@@ -2,6 +2,7 @@
 
 import urllib, urllib2
 import json
+from StringIO import StringIO
 
 PLAYER_VIDEO=1
 
@@ -40,7 +41,11 @@ class XBMCJsonTransport(XBMCTransport):
 		req = urllib2.Request(self.url, data, header)
 		response = urllib2.urlopen(req)
 		the_page = response.read()
-		return the_page
+
+                if len(the_page) > 0 :
+                  return json.load(StringIO(the_page))
+                else:
+                  return None # for readability
 
 class XBMC(object):
 	def __init__(self, url, username='xbmc', password='xbmc'):
