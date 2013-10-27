@@ -7,10 +7,12 @@ from StringIO import StringIO
 PLAYER_VIDEO=1
 
 class XBMCTransport(object):
+  """Base class for XBMC transport"""
   def execute(self, method, args):
     pass
 
 class XBMCJsonTransport(XBMCTransport):
+  """HTTP Json transport"""
   def __init__(self, url, username='xbmc', password='xbmc'):
     self.url=url
     self.username=username
@@ -49,6 +51,7 @@ class XBMCJsonTransport(XBMCTransport):
       return None # for readability
 
 class XBMC(object):
+  """XBMC client"""
   def __init__(self, url, username='xbmc', password='xbmc'):
     self.transport = XBMCJsonTransport(url, username, password)
     self.JSONRPC = JSONRPC(self.transport)
@@ -60,6 +63,7 @@ class XBMC(object):
       self.transport.execute(*args, **kwargs)
 
 class XbmcNamespace(object):
+  """Base class for XBMC namespace."""
   def __init__(self, xbmc):
     self.xbmc = xbmc
   def __getattr__(self, name):
@@ -71,13 +75,18 @@ class XbmcNamespace(object):
     return hook
 
 class JSONRPC(XbmcNamespace):
+  """XBMC JSONRPC namespace. See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6#JSONRPC"""
   pass
 class VideoLibrary(XbmcNamespace):
+  """XBMC VideoLibrary namespace. See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6#VideoLibrary_2"""
   pass
 class Application(XbmcNamespace):
+  """Application namespace. See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6#Application"""
   pass
 class Gui(XbmcNamespace):
+  """XBMC Gui namespace. See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6#GUI_2"""
   pass
 class Player(XbmcNamespace):
+  """XBMC Player namespace. http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6#Player"""
   pass
 
