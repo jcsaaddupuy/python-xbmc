@@ -1,0 +1,5 @@
+include LICENSE README.md version.py
+exclude .gitignore
+
+recursive-include xbmc *
+recursive-exclude xbmc *.pyc
