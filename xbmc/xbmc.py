@@ -15,6 +15,8 @@ class XBMCJsonTransport(XBMCTransport):
     self.url=url
     self.username=username
     self.password=password
+    self.id = 0
+
   def execute(self, method, *args, **kwargs):
     header = {
         'Content-Type' : 'application/json',
@@ -24,6 +26,8 @@ class XBMCJsonTransport(XBMCTransport):
       args=args[0]
     params = kwargs
     params['jsonrpc']='2.0'
+    params['id']=self.id
+    self.id +=1
     params['method']=method
     params['params']=args
 
@@ -38,6 +42,7 @@ class XBMCJsonTransport(XBMCTransport):
     print data
     response = urllib2.urlopen(req)
     the_page = response.read()
+    print "'%s'"%(the_page)
     if len(the_page) > 0 :
       return json.load(StringIO(the_page))
     else:
@@ -46,6 +51,7 @@ class XBMCJsonTransport(XBMCTransport):
 class XBMC(object):
   def __init__(self, url, username='xbmc', password='xbmc'):
     self.transport = XBMCJsonTransport(url, username, password)
+    self.JSONRPC = JSONRPC(self.transport)
     self.VideoLibrary = VideoLibrary(self.transport)
     self.Application = Application(self.transport)
     self.Gui = Gui(self.transport)
@@ -64,6 +70,8 @@ class XbmcNamespace(object):
       return self.xbmc.execute(xbmcmethod, *args, **kwargs)
     return hook
 
+class JSONRPC(XbmcNamespace):
+  pass
 class VideoLibrary(XbmcNamespace):
   pass
 class Application(XbmcNamespace):
