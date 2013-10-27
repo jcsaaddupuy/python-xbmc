@@ -15,7 +15,11 @@ Usages examples :
 Client instanciation
 ```python
 from xbmc import XBMC, PLAYER_VIDEO
+#Login with default xbmc/xbmc credentials
 xbmc = XBMC("http://YOURHOST/jsonrpc")
+
+#Login with custom credentials
+xbmc = XBMC("http://YOURHOST/jsonrpc", "login", "password")
 ```
 Ping XBMC
 ```python
