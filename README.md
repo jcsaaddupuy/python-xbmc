@@ -34,12 +34,15 @@ xbmc.GUI.ActivateWindow({"window":"weather"})
 
 # Show some notifiations :
 xbmc.GUI.ShowNotification({"title":"Title", "message":"Hello notif"})
+
+# ...and so on
 ```
 
 Library interaction :
 ```python
 xbmc.VideoLibrary.Scan()
 xbmc.VideoLibrary.Clean()
+# ...and so on
 ```
 
 Everything to build a script thats act as a full remote
@@ -63,4 +66,4 @@ See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6 for availables commands
 
 Every XBMC namespaces are accessible from the instanciated xbmc client.
 
-Every commands presents in the [API documentation](http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6) should be accessibles.
+Every commands presents in the [API documentation](http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6) should be available.
