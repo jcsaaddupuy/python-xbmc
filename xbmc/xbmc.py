@@ -7,73 +7,69 @@ from StringIO import StringIO
 PLAYER_VIDEO=1
 
 class XBMCTransport(object):
-	def execute(self, method, args):
-		pass
+  def execute(self, method, args):
+    pass
 
 class XBMCJsonTransport(XBMCTransport):
-	def __init__(self, url, username='xbmc', password='xbmc'):
-		self.url=url
-		self.username=username
-		self.password=password
-	def execute(self, method, *args, **kwargs):
-		header = {
-			'Content-Type' : 'application/json',
-			'User-Agent' : 'python-xbmc'
-		}
-		if len(args) == 1:
-			args=args[0]
-		params = kwargs
-		params['jsonrpc']='2.0'
-		params['method']=method
-		params['params']=args
-		
-		values=json.dumps(params)
-		auth_handler = urllib2.HTTPBasicAuthHandler()
-		auth_handler.add_password(realm=None,
-                          uri=self.url,
-                          user=self.username,
-                          passwd=self.password)
-		opener = urllib2.build_opener(auth_handler)
-		# ...and install it globally so it can be used with urlopen.
-		urllib2.install_opener(opener)
-		#return None
-		data = values
-		req = urllib2.Request(self.url, data, header)
-		response = urllib2.urlopen(req)
-		the_page = response.read()
+  def __init__(self, url, username='xbmc', password='xbmc'):
+    self.url=url
+    self.username=username
+    self.password=password
+  def execute(self, method, *args, **kwargs):
+    header = {
+        'Content-Type' : 'application/json',
+        'User-Agent' : 'python-xbmc'
+        }
+    if len(args) == 1:
+      args=args[0]
+    params = kwargs
+    params['jsonrpc']='2.0'
+    params['method']=method
+    params['params']=args
 
-                if len(the_page) > 0 :
-                  return json.load(StringIO(the_page))
-                else:
-                  return None # for readability
+    values=json.dumps(params)
+    auth_handler = urllib2.HTTPBasicAuthHandler()
+    auth_handler.add_password(realm=None, uri=self.url, user=self.username, passwd=self.password)
+    opener = urllib2.build_opener(auth_handler)
+    # ...and install it globally so it can be used with urlopen.
+    urllib2.install_opener(opener)
+    data = values
+    req = urllib2.Request(self.url, data, header)
+    print data
+    response = urllib2.urlopen(req)
+    the_page = response.read()
+    if len(the_page) > 0 :
+      return json.load(StringIO(the_page))
+    else:
+      return None # for readability
 
 class XBMC(object):
-	def __init__(self, url, username='xbmc', password='xbmc'):
-		self.transport = XBMCJsonTransport(url, username, password)
-		self.VideoLibrary = VideoLibrary(self.transport)	
-		self.Application = Application(self.transport)	
-		self.Gui = Gui(self.transport)	
-		self.Player = Player(self.transport)	
-	def execute(self, *args, **kwargs):
-		self.transport.execute(*args, **kwargs)
+  def __init__(self, url, username='xbmc', password='xbmc'):
+    self.transport = XBMCJsonTransport(url, username, password)
+    self.VideoLibrary = VideoLibrary(self.transport)
+    self.Application = Application(self.transport)
+    self.Gui = Gui(self.transport)
+    self.Player = Player(self.transport)
+    def execute(self, *args, **kwargs):
+      self.transport.execute(*args, **kwargs)
 
 class XbmcNamespace(object):
-	def __init__(self, xbmc):
-		self.xbmc = xbmc
-	def __getattr__(self, name):
-		klass= self.__class__.__name__
-		method=name
-		xbmcmethod = "%s.%s"%(klass, method)
-		def hook(*args, **kwargs):
-			return self.xbmc.execute(xbmcmethod, *args, **kwargs)
-		return hook
-	
+  def __init__(self, xbmc):
+    self.xbmc = xbmc
+  def __getattr__(self, name):
+    klass= self.__class__.__name__
+    method=name
+    xbmcmethod = "%s.%s"%(klass, method)
+    def hook(*args, **kwargs):
+      return self.xbmc.execute(xbmcmethod, *args, **kwargs)
+    return hook
+
 class VideoLibrary(XbmcNamespace):
-	pass
+  pass
 class Application(XbmcNamespace):
-	pass
+  pass
 class Gui(XbmcNamespace):
-	pass
+  pass
 class Player(XbmcNamespace):
-	pass
+  pass
 
