@@ -15,3 +15,4 @@ if __name__ == "__main__":
 	print xbmc.VideoLibrary.GetTVShows({ "filter": {"field": "playcount", "operator": "is", "value": "0"}, "limits": { "start" : 0, "end": 75 }, "properties": ["art", "genre", "plot", "title", "originaltitle", "year", "rating", "thumbnail", "playcount", "file", "fanart"], "sort": { "order": "ascending", "method": "label" } }, id="libTvShows")
         # Show a notification
         xbmc.Gui.ShowNotification({"title":"Title", "message":"Hello notif"})
+        print xbmc.JSONRPC.Ping()["result"]

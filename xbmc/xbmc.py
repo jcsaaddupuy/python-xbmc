@@ -34,17 +34,17 @@ class XBMCJsonTransport(XBMCTransport):
     params['params']=args
 
     values=json.dumps(params)
-    auth_handler = urllib2.HTTPBasicAuthHandler()
-    auth_handler.add_password(realm=None, uri=self.url, user=self.username, passwd=self.password)
-    opener = urllib2.build_opener(auth_handler)
-    # ...and install it globally so it can be used with urlopen.
+    # HTTP Authentication
+    password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm() 
+    password_mgr.add_password(None, self.url, self.username, self.password) 
+    auth_handler = urllib2.HTTPBasicAuthHandler(password_mgr)
+    opener = urllib2.build_opener(auth_handler) 
     urllib2.install_opener(opener)
+
     data = values
     req = urllib2.Request(self.url, data, header)
-    print data
     response = urllib2.urlopen(req)
     the_page = response.read()
-    print "'%s'"%(the_page)
     if len(the_page) > 0 :
       return json.load(StringIO(the_page))
     else:
@@ -54,11 +54,10 @@ class XBMC(object):
   """XBMC client"""
   def __init__(self, url, username='xbmc', password='xbmc'):
     self.transport = XBMCJsonTransport(url, username, password)
-    self.JSONRPC = JSONRPC(self.transport)
-    self.VideoLibrary = VideoLibrary(self.transport)
-    self.Application = Application(self.transport)
-    self.Gui = Gui(self.transport)
-    self.Player = Player(self.transport)
+    # Dynamic namespace class instanciation
+    for cl in namespaces:
+      s = "self.%s = %s(self.transport)"%(cl,cl)
+      exec(s)
     def execute(self, *args, **kwargs):
       self.transport.execute(*args, **kwargs)
 
@@ -74,19 +73,11 @@ class XbmcNamespace(object):
       return self.xbmc.execute(xbmcmethod, *args, **kwargs)
     return hook
 
-class JSONRPC(XbmcNamespace):
-  """XBMC JSONRPC namespace. See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6#JSONRPC"""
+# Dynamic namespace class injection
+namespaces = ["VideoLibrary", "Application", "Player", "Input", "System", "Playlist", "Addons", "AudioLibrary", "Files", "GUI" , "JSONRPC", "PVR", "xbmc"]
+for cl in namespaces:
+  s = """class %s(XbmcNamespace):
+  \"\"\"XBMC %s namespace. \"\"\"
   pass
-class VideoLibrary(XbmcNamespace):
-  """XBMC VideoLibrary namespace. See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6#VideoLibrary_2"""
-  pass
-class Application(XbmcNamespace):
-  """Application namespace. See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6#Application"""
-  pass
-class Gui(XbmcNamespace):
-  """XBMC Gui namespace. See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6#GUI_2"""
-  pass
-class Player(XbmcNamespace):
-  """XBMC Player namespace. http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6#Player"""
-  pass
-
+  """%(cl,cl)
+  exec (s)
