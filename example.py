@@ -1,4 +1,4 @@
-#!/bin_/env/python
+#!/bin/env/python
 
 from xbmc import XBMC, PLAYER_VIDEO
 
