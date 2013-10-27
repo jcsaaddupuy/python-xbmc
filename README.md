@@ -38,7 +38,7 @@ xbmc.VideoLibrary.Scan()
 xbmc.VideoLibrary.Clean()
 ```
 
-Everything to build a full script thats act as a remote
+Everything to build a script thats act as a full remote
 ```python
 xbmc.Application.SetMute({"mute":True})
 xbmc.Player.PlayPause([PLAYER_VIDEO])
