@@ -1,4 +1,4 @@
-#!/bin_/env/python
+#!/bin/env/python
 
 import urllib, urllib2
 import json
@@ -27,7 +27,6 @@ class XBMCJsonTransport(XBMCTransport):
 		params['params']=args
 		
 		values=json.dumps(params)
-		print values
 		auth_handler = urllib2.HTTPBasicAuthHandler()
 		auth_handler.add_password(realm=None,
                           uri=self.url,
