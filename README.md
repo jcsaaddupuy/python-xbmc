@@ -9,6 +9,61 @@ Install it :
 pip install xbmc-json
 ```
 
-See example.py for usages.
+
+Usages examples :
+
+Client instanciation
+```python
+from xbmc import XBMC, PLAYER_VIDEO
+#Login with default xbmc/xbmc credentials
+xbmc = XBMC("http://YOURHOST/jsonrpc")
+
+#Login with custom credentials
+xbmc = XBMC("http://YOURHOST/jsonrpc", "login", "password")
+```
+Ping XBMC
+```python
+print xbmc.JSONRPC.Ping()
+```
+
+UI interaction :
+```python
+# Navigate throught windows
+xbmc.GUI.ActivateWindow({"window":"home"})
+xbmc.GUI.ActivateWindow({"window":"weather"})
+
+# Show some notifiations :
+xbmc.GUI.ShowNotification({"title":"Title", "message":"Hello notif"})
+
+# ...and so on
+```
+
+Library interaction :
+```python
+xbmc.VideoLibrary.Scan()
+xbmc.VideoLibrary.Clean()
+# ...and so on
+```
+
+Everything to build a script thats act as a full remote
+```python
+xbmc.Application.SetMute({"mute":True})
+xbmc.Player.PlayPause([PLAYER_VIDEO])
+xbmc.Player.Stop([PLAYER_VIDEO])
+xbmc.Input.Left()
+xbmc.Input.Right()
+xbmc.Input.Up()
+xbmc.Input.Down()
+xbmc.Input.Back()
+xbmc.Input.Down()
+xbmc.Input.Info()
+# ...and so on
+```
+
 
 See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6 for availables commands.
+
+
+Every XBMC namespaces are accessible from the instanciated xbmc client.
+
+Every commands presents in the [API documentation](http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6) should be available.
