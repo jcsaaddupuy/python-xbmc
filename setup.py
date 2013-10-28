@@ -1,7 +1,7 @@
 from setuptools import setup
 import version
 
-PACKAGE = 'xbmc'
+PACKAGE = 'xbmcjson'
 
 setup(name = PACKAGE, version = version.VERSION,
     license = "WTFPL",
@@ -9,6 +9,6 @@ setup(name = PACKAGE, version = version.VERSION,
     author = "Jean-Christophe Saad-Dupuy",
     author_email = "saad.dupuy@gmail.com",
     url = "https://github.com/jcsaaddupuy/python-xbmc",
-    py_modules = [ "xbmc/xbmc" ],
-    packages = ["xbmc"],
+    py_modules = [ "xbmcjson/xbmcjson" ],
+    packages = ["xbmcjson"],
     )

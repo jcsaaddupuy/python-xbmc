@@ -1,12 +1,12 @@
-python-xbmc
-===========
+python xbmc json client
+=======================
 
 Simple python module that allow xbmc control over HTTP Json API.
 Virtually support all availables commands.
 
 Install it :
 ```bash
-pip install xbmc
+pip install xbmc-json
 ```
 
 See example.py for usages.

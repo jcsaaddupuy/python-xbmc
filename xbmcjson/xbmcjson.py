@@ -61,7 +61,7 @@ class XBMC(object):
     def execute(self, *args, **kwargs):
       self.transport.execute(*args, **kwargs)
 
-class XbmcNamespace(object):
+class XBMCNamespace(object):
   """Base class for XBMC namespace."""
   def __init__(self, xbmc):
     self.xbmc = xbmc
@@ -76,7 +76,7 @@ class XbmcNamespace(object):
 # Dynamic namespace class injection
 namespaces = ["VideoLibrary", "Application", "Player", "Input", "System", "Playlist", "Addons", "AudioLibrary", "Files", "GUI" , "JSONRPC", "PVR", "xbmc"]
 for cl in namespaces:
-  s = """class %s(XbmcNamespace):
+  s = """class %s(XBMCNamespace):
   \"\"\"XBMC %s namespace. \"\"\"
   pass
   """%(cl,cl)

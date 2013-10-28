@@ -1,6 +1,6 @@
 #!/bin/env/python
 
-from xbmc import XBMC, PLAYER_VIDEO
+from xbmcjson import XBMC, PLAYER_VIDEO
 
 if __name__ == "__main__":
 	xbmc = XBMC("http://YOURHOST/jsonrpc")
