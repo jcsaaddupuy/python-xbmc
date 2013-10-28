@@ -1,7 +1,7 @@
 from setuptools import setup
 import version
 
-PACKAGE = 'xbmcjson'
+PACKAGE = 'xbmc-json'
 
 setup(name = PACKAGE, version = version.VERSION,
     license = "WTFPL",
