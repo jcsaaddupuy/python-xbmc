@@ -38,6 +38,14 @@ xbmc.GUI.ShowNotification({"title":"Title", "message":"Hello notif"})
 # ...and so on
 ```
 
+Parameters can alos be passed as python parameters:
+```python
+xbmc.GUI.ActivateWindow(window="home")
+xbmc.GUI.ActivateWindow(window="weather")
+xbmc.GUI.ShowNotification(title="Title", message = "Hello notif")
+```
+
+
 Library interaction :
 ```python
 xbmc.VideoLibrary.Scan()
