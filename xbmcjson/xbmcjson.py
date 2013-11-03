@@ -1,4 +1,4 @@
-#!/bin/env/python
+#!/bin/env python
 
 import urllib, urllib2
 import json
@@ -24,9 +24,13 @@ class XBMCJsonTransport(XBMCTransport):
         'Content-Type' : 'application/json',
         'User-Agent' : 'python-xbmc'
         }
+    # Params are given as a dictionnary
     if len(args) == 1:
       args=args[0]
-    params = kwargs
+    # Use kwargs for param=value style
+    else:
+      args = kwargs
+    params={}
     params['jsonrpc']='2.0'
     params['id']=self.id
     self.id +=1
