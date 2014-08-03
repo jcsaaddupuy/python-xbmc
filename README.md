@@ -78,3 +78,9 @@ Every commands presents in the [API documentation](http://wiki.xbmc.org/index.ph
 
 
 You can take a look at [xbmc-client](https://github.com/jcsaaddupuy/xbmc-client) for an implementation example.
+
+
+Contribute
+-----------
+
+Please make your PR on the branch develop :)
