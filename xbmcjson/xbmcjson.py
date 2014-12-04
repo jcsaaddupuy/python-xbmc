@@ -1,8 +1,9 @@
 #!/bin/env python
+# VERSION = "0.0.4.dev"
 
-import urllib, urllib2
+import urllib, urllib
 import json
-from StringIO import StringIO
+from io import StringIO
 
 PLAYER_VIDEO=1
 
@@ -27,7 +28,8 @@ class XBMCJsonTransport(XBMCTransport):
     # Params are given as a dictionnary
     if len(args) == 1:
       args=args[0]
-    # Use kwargs for param=value style
+      params = kwargs 
+      # Use kwargs for param=value style
     else:
       args = kwargs
     params={}
@@ -39,18 +41,18 @@ class XBMCJsonTransport(XBMCTransport):
 
     values=json.dumps(params)
     # HTTP Authentication
-    password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm() 
+    password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm() 
     password_mgr.add_password(None, self.url, self.username, self.password) 
-    auth_handler = urllib2.HTTPBasicAuthHandler(password_mgr)
-    opener = urllib2.build_opener(auth_handler) 
-    urllib2.install_opener(opener)
+    auth_handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
+    opener = urllib.request.build_opener(auth_handler) 
+    urllib.request.install_opener(opener)
 
     data = values
-    req = urllib2.Request(self.url, data, header)
-    response = urllib2.urlopen(req)
+    req = urllib.request.Request(self.url, data.encode('utf-8'), header)
+    response = urllib.request.urlopen(req)
     the_page = response.read()
     if len(the_page) > 0 :
-      return json.load(StringIO(the_page))
+      return json.load(StringIO(the_page.decode('utf-8')))
     else:
       return None # for readability
 
@@ -78,7 +80,7 @@ class XBMCNamespace(object):
     return hook
 
 # Dynamic namespace class injection
-namespaces = ["VideoLibrary", "AudioLibrary", "Application", "Player", "Input", "System", "Playlist", "Addons", "AudioLibrary", "Files", "GUI" , "JSONRPC", "PVR", "xbmc"]
+namespaces = ["VideoLibrary", "Settings", "Favourites", "AudioLibrary", "Application", "Player", "Input", "System", "Playlist", "Addons", "AudioLibrary", "Files", "GUI" , "JSONRPC", "PVR", "xbmc"]
 for cl in namespaces:
   s = """class %s(XBMCNamespace):
   \"\"\"XBMC %s namespace. \"\"\"
