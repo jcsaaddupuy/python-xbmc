@@ -1,7 +1,7 @@
 #!/bin/env python
 # VERSION = "0.0.4.dev"
 
-import urllib, urllib
+import urllib
 import json
 from io import StringIO
 
