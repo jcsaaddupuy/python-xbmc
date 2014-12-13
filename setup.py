@@ -11,4 +11,12 @@ setup(name = PACKAGE, version = version.VERSION,
     url = "https://github.com/jcsaaddupuy/python-xbmc",
     py_modules = [ "xbmcjson/xbmcjson" ],
     packages = ["xbmcjson"],
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Topic :: Utilities",
+        "Intended Audience :: Developers",
+
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.4",
+        ]
     )
