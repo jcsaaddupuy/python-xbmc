@@ -75,3 +75,12 @@ See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6 for availables commands
 Every XBMC namespaces are accessible from the instanciated xbmc client.
 
 Every commands presents in the [API documentation](http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6) should be available.
+
+
+You can take a look at [xbmc-client](https://github.com/jcsaaddupuy/xbmc-client) for an implementation example.
+
+
+Contribute
+-----------
+
+Please make your PR on the branch develop :)
