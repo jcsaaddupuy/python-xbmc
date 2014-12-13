@@ -1,3 +1,11 @@
+
+[![Latest Version](https://pypip.in/version/xbmc-json/badge.svg)](https://pypi.python.org/pypi/xbmc-json/)
+[![Supported Python versions](https://pypip.in/py_versions/xbmc-json/badge.svg)](https://pypi.python.org/pypi/xbmc-json/)
+[![Wheel Status](https://pypip.in/wheel/xbmc-json/badge.svg)](https://pypi.python.org/pypi/xbmc-json/)
+[![License](https://pypip.in/license/xbmc-json/badge.svg)](https://pypi.python.org/pypi/xbmc-json/)
+
+
+
 python xbmc json client
 =======================
 
