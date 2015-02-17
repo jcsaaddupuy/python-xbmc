@@ -1,1 +1,2 @@
-from xbmcjson import *
+from .xbmcjson import *
+
