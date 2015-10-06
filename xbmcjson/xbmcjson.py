@@ -24,7 +24,7 @@ class XBMCJsonTransport(XBMCTransport):
     self.id = 0
 
   def execute(self, method, *args, **kwargs):
-    header = {
+    headers = {
         'Content-Type' : 'application/json',
         'User-Agent' : 'python-xbmc'
         }
@@ -45,7 +45,7 @@ class XBMCJsonTransport(XBMCTransport):
     values=json.dumps(params)
     # HTTP Authentication
 
-    resp = requests.post(self.url, values.encode('utf-8'), headers=header,auth=(self.username, self.password))
+    resp = requests.post(self.url, values.encode('utf-8'), headers=headers,auth=(self.username, self.password))
     resp.raise_for_status()
     return resp.json()
 
