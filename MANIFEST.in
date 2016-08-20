@@ -1,5 +1,10 @@
-include LICENSE README.md version.py
-exclude .gitignore
+include version.py
+include LICENSE
+include README.md
 
-recursive-include xbmc *
-recursive-exclude xbmc *.pyc
+graft xbmcjson
+graft tests
+
+
+global-exclude __pycache__
+global-exclude *.py[co]

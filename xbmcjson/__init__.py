@@ -1,2 +1,19 @@
-from .xbmcjson import *
-
+from .xbmcjson import (
+        XBMC,
+        Addons,
+        Application,
+        AudioLibrary,
+        Favourites,
+        Files,
+        GUI,
+        Input,
+        JSONRPC,
+        Playlist,
+        Player,
+        PVR,
+        Settings,
+        System,
+        VideoLibrary,
+        XBMCJsonTransport,
+        xbmc,
+)
