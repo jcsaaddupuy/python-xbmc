@@ -1,7 +1,33 @@
+""" XBMC/Kodi jsonclient library module"""
 import json
 import requests
 
+# XBMC constant
 PLAYER_VIDEO = 1
+
+# Dynamic namespace class injection
+__XBMC_NAMESPACES__ = (
+    "Addons",
+
+    "Application",
+    "AudioLibrary",
+
+    "Favourites",
+    "Files",
+    "GUI",
+    "Input",
+    "JSONRPC",
+
+    "Playlist",
+    "Player",
+    "PVR",
+
+    "Settings",
+    "System",
+
+    "VideoLibrary",
+    "xbmc"
+)
 
 
 class XBMCTransport(object):
@@ -55,9 +81,10 @@ class XBMC(object):
     def __init__(self, url, username='xbmc', password='xbmc'):
         self.transport = XBMCJsonTransport(url, username, password)
         # Dynamic namespace class instanciation
-        for cl in namespaces:
-            s = "self.%s = %s(self.transport)" % (cl, cl)
-            exec(s)
+        # we obtain class by looking up in globals
+        _globals = globals()
+        for cl in __XBMC_NAMESPACES__:
+            setattr(self, cl, _globals[cl](self.transport))
 
     def execute(self, *args, **kwargs):
         self.transport.execute(*args, **kwargs)
@@ -79,33 +106,13 @@ class XBMCNamespace(object):
 
         return hook
 
-# Dynamic namespace class injection
-namespaces = (
-    "Addons",
 
-    "Application",
-    "AudioLibrary",
-
-    "Favourites",
-    "Files",
-    "GUI",
-    "Input",
-    "JSONRPC",
-
-    "Playlist",
-    "Player",
-    "PVR",
-
-    "Settings",
-    "System",
-
-    "VideoLibrary",
-    "xbmc"
-)
-
-for cl in namespaces:
-    s = """class %s(XBMCNamespace):
-    \"\"\"XBMC %s namespace. \"\"\"
-    pass
-    """ % (cl, cl)
-    exec(s)
+# inject new type in module locals
+_locals = locals()
+for cl in __XBMC_NAMESPACES__:
+    # define a new type extending XBMCNamespace
+    # equivalent to
+    #
+    # class Y(XBMCNamespace):
+    #    pass
+    _locals[cl] = type(cl, (XBMCNamespace,), {})
