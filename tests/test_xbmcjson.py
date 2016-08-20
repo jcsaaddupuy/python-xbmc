@@ -2,6 +2,9 @@
 import responses
 import json
 
+# not usedd, ensure import is working
+from xbmcjson import PLAYER_VIDEO
+
 from xbmcjson import XBMC
 from xbmcjson import Addons
 
