@@ -2,32 +2,21 @@
 import json
 import requests
 
+# this list will be extended with types dynamically defined
+__all__ = ["PLAYER_VIDEO",
+           "XBMCTransport",
+           "XBMCJsonTransport",
+           "XBMC",
+           "XBMCNamespace", ]
+
 # XBMC constant
 PLAYER_VIDEO = 1
 
 # Dynamic namespace class injection
 __XBMC_NAMESPACES__ = (
-    "Addons",
-
-    "Application",
-    "AudioLibrary",
-
-    "Favourites",
-    "Files",
-    "GUI",
-    "Input",
-    "JSONRPC",
-
-    "Playlist",
-    "Player",
-    "PVR",
-
-    "Settings",
-    "System",
-
-    "VideoLibrary",
-    "xbmc"
-)
+    "Addons", "Application", "AudioLibrary", "Favourites", "Files", "GUI",
+    "Input", "JSONRPC", "Playlist", "Player", "PVR", "Settings", "System",
+    "VideoLibrary", "xbmc")
 
 
 class XBMCTransport(object):
@@ -106,7 +95,6 @@ class XBMCNamespace(object):
 
         return hook
 
-
 # inject new type in module locals
 _locals = locals()
 for cl in __XBMC_NAMESPACES__:
@@ -115,4 +103,6 @@ for cl in __XBMC_NAMESPACES__:
     #
     # class Y(XBMCNamespace):
     #    pass
-    _locals[cl] = type(cl, (XBMCNamespace,), {})
+    _locals[cl] = type(cl, (XBMCNamespace, ), {})
+    # inject class in __all__ for import * to work
+    __all__.append(cl)
