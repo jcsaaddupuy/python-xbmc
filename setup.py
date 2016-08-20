@@ -18,6 +18,7 @@ setup(name=PACKAGE,
       classifiers=[
           "Development Status :: 4 - Beta",
           "Topic :: Utilities",
+          "Topic :: Multimedia",
           "Intended Audience :: Developers",
           "Programming Language :: Python :: 2.7",
           "Programming Language :: Python :: 3.1",
