@@ -18,7 +18,7 @@ matrix:
       - python: pypy
         env: TOX_ENV=pypy
       - python: 3.5
-        env: TOX_ENV=flake8
+        env: TOX_ENV=py35
 
 script: tox -e $TOX_ENV
 
