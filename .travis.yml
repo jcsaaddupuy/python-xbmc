@@ -2,6 +2,7 @@
 
 sudo: false
 language: python
+cache: pip
 
 matrix:
     include:
@@ -15,21 +16,22 @@ matrix:
         env: TOX_ENV=py34
       - python: 3.5
         env: TOX_ENV=py35
-      - python: nightly
-        env: TOX_ENV=py36
       - python: pypy
         env: TOX_ENV=pypy
       - python: 3.5
         env: TOX_ENV=py35
+      - python: nightly
+        env: TOX_ENV=py36
 
 script: tox -e $TOX_ENV
 
 install:
-    - pip install tox
+    - pip install tox coverage
 
 
 after_success:
     # Report coverage results to codecov.io
     # and export tox environment variables
+    - coverage combine
     - pip install codecov
     - codecov -e TOX_ENV TRAVIS_OS_NAME
