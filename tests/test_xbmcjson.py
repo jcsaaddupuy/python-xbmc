@@ -1,9 +1,9 @@
 """Test for xbmcjson module"""
-import responses
 import json
+import responses
 
-# not usedd, ensure import is working
-from xbmcjson import PLAYER_VIDEO
+# not used, ensure import is working
+from xbmcjson import PLAYER_VIDEO  # NOQA
 
 from xbmcjson import XBMC
 from xbmcjson import Addons
@@ -36,18 +36,18 @@ class TestXBMCJsonTransport(object):
         """Tests XBMCJsonTransport default values"""
         url = "http://localhost/"
         transport = XBMCJsonTransport(url=url)
-        assert (transport.url == url)
-        assert (transport.username == "xbmc")
-        assert (transport.password == "xbmc")
+        assert transport.url == url
+        assert transport.username == "xbmc"
+        assert transport.password == "xbmc"
 
     def test_parameters(self):
         """Tests XBMCJsonTransport default values"""
 
         url = "http://localhost/"
         transport = XBMCJsonTransport(url=url, username="kodi", password="pwd")
-        assert (transport.url == url)
-        assert (transport.username == "kodi")
-        assert (transport.password == "pwd")
+        assert transport.url == url
+        assert transport.username == "kodi"
+        assert transport.password == "pwd"
 
     @responses.activate
     def test_http_call_no_args(self):
@@ -124,25 +124,25 @@ class TestXBMC(object):
 
         url = "http://localhost/"
         x = XBMC(url=url)
-        assert (isinstance(x.Addons, Addons))
+        assert isinstance(x.Addons, Addons)
 
-        assert (isinstance(x.Application, Application))
-        assert (isinstance(x.AudioLibrary, AudioLibrary))
+        assert isinstance(x.Application, Application)
+        assert isinstance(x.AudioLibrary, AudioLibrary)
 
-        assert (isinstance(x.Favourites, Favourites))
-        assert (isinstance(x.Files, Files))
-        assert (isinstance(x.GUI, GUI))
-        assert (isinstance(x.Input, Input))
-        assert (isinstance(x.JSONRPC, JSONRPC))
+        assert isinstance(x.Favourites, Favourites)
+        assert isinstance(x.Files, Files)
+        assert isinstance(x.GUI, GUI)
+        assert isinstance(x.Input, Input)
+        assert isinstance(x.JSONRPC, JSONRPC)
 
-        assert (isinstance(x.Playlist, Playlist))
-        assert (isinstance(x.Player, Player))
-        assert (isinstance(x.PVR, PVR))
+        assert isinstance(x.Playlist, Playlist)
+        assert isinstance(x.Player, Player)
+        assert isinstance(x.PVR, PVR)
 
-        assert (isinstance(x.Settings, Settings))
-        assert (isinstance(x.System, System))
-        assert (isinstance(x.VideoLibrary, VideoLibrary))
-        assert (isinstance(x.xbmc, xbmc))
+        assert isinstance(x.Settings, Settings)
+        assert isinstance(x.System, System)
+        assert isinstance(x.VideoLibrary, VideoLibrary)
+        assert isinstance(x.xbmc, xbmc)
 
     @responses.activate
     def test_ping(self):
