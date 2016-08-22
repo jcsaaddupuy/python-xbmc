@@ -3,6 +3,7 @@
 [![Supported Python versions](https://pypip.in/py_versions/xbmc-json/badge.svg)](https://pypi.python.org/pypi/xbmc-json/)
 [![Wheel Status](https://pypip.in/wheel/xbmc-json/badge.svg)](https://pypi.python.org/pypi/xbmc-json/)
 [![License](https://pypip.in/license/xbmc-json/badge.svg)](https://pypi.python.org/pypi/xbmc-json/)
+[![codecov](https://codecov.io/gh/jcsaaddupuy/python-xbmc/branch/master/graph/badge.svg)](https://codecov.io/gh/jcsaaddupuy/python-xbmc)
 
 
 
