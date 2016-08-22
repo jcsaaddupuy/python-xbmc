@@ -23,6 +23,7 @@ class XBMCTransport(object):
     """Base class for XBMC transport"""
 
     def execute(self, method, args):
+        """Execute method with given args"""
         pass  # pragma: no cover
 
 
@@ -33,7 +34,7 @@ class XBMCJsonTransport(XBMCTransport):
         self.url = url
         self.username = username
         self.password = password
-        self.id = 0
+        self._id = 0
 
     def execute(self, method, *args, **kwargs):
         headers = {
@@ -49,8 +50,8 @@ class XBMCJsonTransport(XBMCTransport):
             args = kwargs
         params = {}
         params['jsonrpc'] = '2.0'
-        params['id'] = self.id
-        self.id += 1
+        params['id'] = self._id
+        self._id += 1
         params['method'] = method
         params['params'] = args
 
@@ -76,6 +77,7 @@ class XBMC(object):
             setattr(self, cl, _globals[cl](self.transport))
 
     def execute(self, *args, **kwargs):
+        """Execute method with given args and kwargs"""
         self.transport.execute(*args, **kwargs)
 
 
@@ -91,18 +93,19 @@ class XBMCNamespace(object):
         xbmcmethod = "%s.%s" % (klass, method)
 
         def hook(*args, **kwargs):
+            """ Hook for dynamic method definition"""
             return self.xbmc.execute(xbmcmethod, *args, **kwargs)
 
         return hook
 
 # inject new type in module locals
-_locals = locals()
-for cl in __XBMC_NAMESPACES__:
+_LOCALS_ = locals()
+for _classname in __XBMC_NAMESPACES__:
     # define a new type extending XBMCNamespace
     # equivalent to
     #
     # class Y(XBMCNamespace):
     #    pass
-    _locals[cl] = type(cl, (XBMCNamespace, ), {})
+    _LOCALS_[_classname] = type(_classname, (XBMCNamespace, ), {})
     # inject class in __all__ for import * to work
-    __all__.append(cl)
+    __all__.append(_classname)
