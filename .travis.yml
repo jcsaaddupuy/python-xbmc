@@ -1,6 +1,5 @@
 # Config file for automatic testing at travis-ci.org
 
-sudo: false
 language: python
 cache: pip
 
@@ -26,12 +25,11 @@ matrix:
 script: tox -e $TOX_ENV
 
 install:
-    - pip install tox coverage
+    - pip install tox
 
 
 after_success:
     # Report coverage results to codecov.io
     # and export tox environment variables
-    - coverage combine
     - pip install codecov
     - codecov -e TOX_ENV TRAVIS_OS_NAME
