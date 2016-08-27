@@ -4,7 +4,7 @@
 [![Travis](https://img.shields.io/travis/jcsaaddupuy/python-xbmc.svg?maxAge=2592000)](https://pypi.python.org/pypi/xbmc-json/)
 [![codecov](https://codecov.io/gh/jcsaaddupuy/python-xbmc/branch/master/graph/badge.svg)](https://codecov.io/gh/jcsaaddupuy/python-xbmc)
 
-
+Deprecated. Code moved to https://github.com/jcsaaddupuy/python-kodijson
 
 python xbmc json client
 =======================
